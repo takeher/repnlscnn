@@ -1,12 +1,3 @@
-"""
-Mask R-CNN
-The main Mask R-CNN model implementation.
-
-Copyright (c) 2017 Matterport, Inc.
-Licensed under the MIT License (see LICENSE for details)
-Written by Waleed Abdulla
-"""
-
 import os
 import random
 import datetime
@@ -475,8 +466,11 @@ class PyramidROIAlign(KE.Layer):
                 method="bilinear"))
 
         # Pack pooled features into one tensor
+        #from prroi_pool import PreciseRoIPooling
+        for e in pooled:
+            precise_rois.append(tf.divide(e, tf.reduce_sum(e)/(self.pool_shape[0]*self.pool_shape[1])))
         pooled = tf.concat(pooled, axis=0)
-
+        pooled = tf.add(pooled, tf.concat(precise_rois, axis=0))
         # Pack box_to_level mapping into one array and add another
         # column representing the order of pooled boxes
         box_to_level = tf.concat(box_to_level, axis=0)
