@@ -4,9 +4,6 @@ class Config(object):
     sub-class that inherits from this one and override properties
     that need to be changed.
     """
-    # Name the configurations. For example, 'COCO', 'Experiment 3', ...etc.
-    # Useful if your code needs to do things differently depending on which
-    # experiment is running.
     NAME = None  # Override in sub-classes
 
     # NUMBER OF GPUs to use. When using only a CPU, this needs to be set to 1.
